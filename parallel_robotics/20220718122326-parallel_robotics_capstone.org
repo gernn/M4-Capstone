@@ -1,1 +1,185 @@
-/home/will/Documents/Zettel/20220718122326-parallel_robotics_capstone.org
+:PROPERTIES:
+:ID:       ccf02ca7-6dad-498a-ae86-557244882ade
+:EXPORT_AUTHOR: Will Tower
+:END:
+#+title: Parallel Robotics Capstone
+#+STARTUP: = latexpreview
+
+* Applications
+
+** Why would you even want to do this?
+
+- Two classes of robots
+
+*** serial (like an arm)
+
+- positioning error is cumumlative
+- long, complex chain structures
+- rigidity decreases as chain count increases
+- joint flexibility dependent on upstream and downstream joints
+
+*** parallel (like a spider)
+
+- each chain relatively short and simple in structure
+- resists unnecessary movement
+- chain positioning error is average
+- off-axis flexibility of joints also affected by other chains
+- provides closed-loop stiffness, robot is rigid relative to components
+- rigidity increases as chain count increases
+
+** Who even does this?
+
+Anyone who needs really high precision, has comparably small manipulated objects, and is okay with one location
+
+
+*** Warehousing
+
+[[https://www.youtube.com/watch?v=2b4YwFZhtIE][CoGiRo]]
+
+  [[file:Applications/2022-07-18_12-43-16_screenshot.png]]
+
+*** Pick + Place + small object manip
+
+Easier + More precise control important/cheaper for small items
+
+[[https://www.youtube.com/watch?v=QFZMhsVn_CE][Pick and Place (China)]]
+
+[[file:Applications/2022-07-18_12-59-12_screenshot.png]]
+
+*** Motion simulator people
+
+Easier to calculate a specific path in parallel kinematics
+
+[[https://www.youtube.com/watch?v=9KMptw7ZgVI&t=1s][Movin a dude]]
+
+[[file:Applications/2022-07-18_13-03-17_screenshot.png]]
+
+*** Biomedical people
+
+Just trust me on this one, assaying, test verification, DNA sequencing, all automatable with parallel robotics. Bio people tend not to call it robotics though.
+
+*** TODO REMOVE friendly university students
+
+https://ethancanderson.com/parallel-cable-robot
+https://www.youtube.com/watch?v=ja98QlLI5gc
+* Mechanical Modules
+
+** Frame (8020)
+
+[[https://8020.net/20-2020.html][site]], $0.25/inch
+
+
+*** an object
+#+ATTR_ORG: :width 400
+[[file:Hardware_needed/2022-07-18_13-11-55_screenshot.png]]
+*** an assembly
+#+ATTR_ORG: :width 400
+[[file:Hardware_needed/2022-07-18_13-13-15_screenshot.png]]
+
+** Effector
+
+Popular to 3d print these for passive end manipulator, probably looking at small sheetmetal project for active manipulator
+
+*** CoGiRo (passive)
+#+ATTR_ORG: :width 300
+[[file:Hardware_needed/2022-07-18_13-31-45_screenshot.png]]
+
+*** Similar Capstone (active)
+#+ATTR_ORG: :width 600
+[[file:Hardware_needed/2022-07-18_13-32-14_screenshot.png]]
+
+** Winches + Pulleys (they rotate)
+
+#+ATTR_ORG: :width 400
+[[file:Hardware_needed/2022-07-18_13-16-45_screenshot.png]]
+
+- Probably looks something like that
+  - stepper motor (bottom)
+  - gearing + screw (right)
+  - optical encoder + PCBA for closed loop control (left)
+  - pulley (top)
+  - this is the mechanically challenging bit
+
+** Stepper Motors
+
+[[https://www.digikey.com/en/products/compare?s=N4IgzCBcDaIEwBYCMB2ADHArCANCBAHAmAlriJgJyWZoqXkBsmBBmKKIAunglCAHoApgDsBABwBOAewAmAVwDGAFwDOAgGYBLADbKhkgav3jxBgLQBbacumT1qSgH5VAXgByCAJIBzAFYAwgBCitIAogAeSNIAIgDiAKpBlkExAILuPgBaAO4A0gCaQdIAikEoeWkARgBKQT4AEgVFlmFplmkAaj5pWQCGAWkA8gCyGX7iAdLiBNKKJWkAGiVeaQ1pAZglC1klANZpImkAUgVpKMMFPQBuPgAqaUFD7n6lABZ7e7LuIhEAYgBlLzHLR5NA9ZQxMIABTify6YGhfy8WSCflk11k0i8NQWdz6d1UOWOPjeETyCR8JQaPgOdwAXmFFASSqosmk0O5ViAAL5AA][comparison on digikey]]
+
+Tricky to buy these guys, they tend to be expensive per unit on Digikey and I'd need to do ~1 day of research into the minimum viable motor
+
+** Mounts
+
+Mounting on 8020 is super easy, literally like legos
+
+* Electronics Modules
+
+** Effector Controller
+
+- small PCBA for actuating whatever is on the effector
+- communication is possible by a trailing cable assembly or wireless
+  - cable for something requiring significant power
+  - wireless for low power application
+
+** Generic Rotary Encoder
+
+- You can buy these on Digikey
+- usually easy to interface them with your custom hardware (SPI/CAN/etc)
+
+[[file:Electronics_Modules/2022-07-18_13-48-01_screenshot.png]]
+
+** Generic Stepper Motor Driver
+
+- You can buy these on Digikey
+- Piece of hardware that generates and sends signals to our selected stepper motor
+
+** Main Control Board
+handles:
+- pathing and kinematics
+- calibration (likely by limit switch?)
+- rotary encoder info streams
+- connection to effector
+- any fancy active controls we want to implement (like robotic vision)
+probably needs to be specced for running some ROS modules, MSP432 dev boards run $50/piece, beaglebone black SBC, or EMC32 line are also good choices
+[[file:Main_Control_Board/2022-07-18_14-30-59_screenshot.png]]
+[[file:Main_Control_Board/2022-07-18_14-28-49_screenshot.png]]
+
+** Power Supply Unit
+#+ATTR_ORG: :width 200
+[[file:Power_Supply_Unit/2022-07-18_14-27-16_screenshot.png]]
+Hard to size until you know what stepper motors are drawing, what your central board is specced for, if you want to do any advanced + special control gizmos. Fermi estimate says
+- 16 W for main board (based on beaglebone SBC max draw
+- Extremely liberal 12 W / Stepper Motor
+- Give +40% for margin
+#+begin_src octave :results output code
+SBC = 16;
+SM = 12*8;
+MARGIN = 1.4;
+fermi_total = MARGIN * (SBC + SM)
+#+end_src
+#+RESULTS:
+#+begin_src octave
+fermi_total = 156.80
+#+end_src
+Tends to run ~$75/unit on Digikey, [[https://www.digikey.com/en/products/detail/traco-power/TXLN-150-124/13681763][link]]
+
+* Some Decent Whitepapers
+
+[[https://www.cambridge.org/core/services/aop-cambridge-core/content/view/B129C939BF4491AA693A36A54AE6D2C7/S0263574721001971a.pdf/full-dynamic-model-of-3-upu-translational-parallel-manipulator-for-model-based-control-schemes.pdf][Kinematics for parallel control schemes]]
+[[https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9737194][on dealing with tension in large cable-driven systems]]
+[[https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9737158][dynamic calibration of cable-driven systems]]
+[[https://arxiv.org/pdf/2003.08860.pdf][adaptive control under uncertainty in parallel robotics]]
+
+* Challenges
+
+- Custom hardware at microcontroller level can be tricky
+- Winch design likely to involve some interaction with mechanical engineering
+- Real time kinematics calculations can be a challenging CS thing, getting to the correct O(n) is critical
+- Active position control can be mathematically involved sometimes
+- Robotics can be mathematically involved sometimes
+- Cable tension problems must be accounted for; for high speed or high robot:object mass ratios
+
+
+
+* Vision Applications
+
+If we feel ambitious the clear thing to do in robotics is usually to add a camera + vision daughter board, demonstrate that we can throw and catch items. I have not done vision like this, super speculative.
+
