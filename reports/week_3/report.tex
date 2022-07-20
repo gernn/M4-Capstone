@@ -1,0 +1,81 @@
+% Created 2022-08-02 Tue 23:37
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\author{Alejandro Hervella, Peter Brown, Ian Chan, Gokce Saracoglu, Will Tower}
+\date{\today}
+\title{Capstone 1 Weekly Report}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+
+\section{Summary of Accomplishments}
+\label{sec:org039b0b1}
+
+This week the group worked to further refine the scope and specification of the proposed project, an electrically driven wheelchair with features as outlined in a prior e-mail:
+\begin{itemize}
+\item Ledge Detection
+The group plans to accomplish this with an array of IR beacons around the wheelchair. Data from the IR beacons will be fed to a machine learning classifier trained to detect various ledge hazards.
+\item Fall Detection / Prevention
+The wheelchair will be equipped with several inertial measurement units (IMUs) which will be used to detect the occurrence and nature of fall events. Active control of wheelchair drive motors will be used to counteract detected events.
+In the case the user falls, the chair will be configured to send a text message to the user's caretaker using a dedicated SIM card.
+\item Speed Control
+The group will implement an active control system to ensure consistent user speed across a variety of slopes and terrains (e.g. grass, concrete). The active control system will limit rate during turns, taking into account the user's slope and weight distribution to prevent fall events on lateral axes.
+\item SMS alert features
+In the case of detected accident events, the device shall emit SMS signals to preconfigured emergency contacts.
+\end{itemize}
+
+
+Further work was done in breaking component planning into tentative software, electronics, and mechanical modules.
+
+\subsection{Software Modules}
+\label{sec:org7608000}
+\begin{enumerate}
+\item Accelerometer/Gyrometer software drivers: Code to fetch information from sensors and send it to a compute module
+\item Motor software drivers: Software to control the movement of the motors
+\item Classifier algorithm for determine fall events, counteracting control loop: Code an algorithm to determine when a user is falling, and how much to correct their steering
+\item SMS/communication module: Should they fall, send an alert through an SMS or wifi module to another device
+\item Debug Module: Software to pull data from wheelchair and allow non-technical users to interface and gather data from the wheelchair
+\item Record and replay accelerometer data
+\end{enumerate}
+
+\subsection{Mechanical Modules}
+\label{sec:orgdc791a7}
+\begin{enumerate}
+\item Wheelchair Design: Calculating the center of gravity of the wheel + angle of fall + draw on SolidWORKS simulate
+\item Caster Assembly: In compliance with the ADA measurements
+\item Motor Mounting:  Connecting motor driver and controller + drive shaft and the base of the wheelchair
+\item Final Assembly: Connecting caster to motor + seat + foot- and armrest
+\end{enumerate}
+
+\subsection{Electronics Modules}
+\label{sec:orgb5a72b8}
+\begin{enumerate}
+\item Motor Selection: Find the right DC motor based on the diameter of the wheel + calculate torque
+\begin{itemize}
+\item Most electric wheelchairs use two 250W two permanent magnet DC motors
+\item \url{https://bit.ly/3OWvF1V}
+\item \url{https://bit.ly/3BHK7rH}
+\end{itemize}
+\item Electrical Component Assembly: Joystick and battery to Arduino
+\item Electrical Component Placement: Arduino + battery
+\end{enumerate}
+
+
+\section{Next Week}
+\label{sec:org63010c3}
+
+The group will delegate individual module responsibility to begin on module prototyping work, and will conduct a meeting with Mech. E. capstone advisor Andrew Gouldstone to shore up specific questions about our mechanical specification.
+\end{document}

@@ -1,0 +1,49 @@
+:PROPERTIES:
+:END:
+#+title: Capstone 1 Weekly Report
+#+AUTHOR: Alejandro Hervella, Peter Brown, Ian Chan, Gokce Saracoglu, Will Tower
+#+STARTUP: = latexpreview
+
+
+* Summary of Accomplishments
+
+This week the group worked to further refine the scope and specification of the proposed project, an electrically driven wheelchair with features as outlined in a prior e-mail:
+- Ledge Detection
+  The group plans to accomplish this with an array of IR beacons around the wheelchair. Data from the IR beacons will be fed to a machine learning classifier trained to detect various ledge hazards.
+- Fall Detection / Prevention
+  The wheelchair will be equipped with several inertial measurement units (IMUs) which will be used to detect the occurrence and nature of fall events. Active control of wheelchair drive motors will be used to counteract detected events.
+  In the case the user falls, the chair will be configured to send a text message to the user's caretaker using a dedicated SIM card.
+- Speed Control
+  The group will implement an active control system to ensure consistent user speed across a variety of slopes and terrains (e.g. grass, concrete). The active control system will limit rate during turns, taking into account the user's slope and weight distribution to prevent fall events on lateral axes.
+- SMS alert features
+  In the case of detected accident events, the device shall emit SMS signals to preconfigured emergency contacts.
+
+
+Further work was done in breaking component planning into tentative software, electronics, and mechanical modules.
+
+** Software Modules
+1. Accelerometer/Gyrometer software drivers: Code to fetch information from sensors and send it to a compute module
+2. Motor software drivers: Software to control the movement of the motors
+3. Classifier algorithm for determine fall events, counteracting control loop: Code an algorithm to determine when a user is falling, and how much to correct their steering
+4. SMS/communication module: Should they fall, send an alert through an SMS or wifi module to another device
+5. Debug Module: Software to pull data from wheelchair and allow non-technical users to interface and gather data from the wheelchair
+6. Record and replay accelerometer data
+
+** Mechanical Modules
+1. Wheelchair Design: Calculating the center of gravity of the wheel + angle of fall + draw on SolidWORKS simulate
+2. Caster Assembly: In compliance with the ADA measurements
+3. Motor Mounting:  Connecting motor driver and controller + drive shaft and the base of the wheelchair
+4. Final Assembly: Connecting caster to motor + seat + foot- and armrest
+
+** Electronics Modules
+1. Motor Selection: Find the right DC motor based on the diameter of the wheel + calculate torque
+   - Most electric wheelchairs use two 250W two permanent magnet DC motors
+   - https://bit.ly/3OWvF1V
+   - https://bit.ly/3BHK7rH
+2. Electrical Component Assembly: Joystick and battery to Arduino
+3. Electrical Component Placement: Arduino + battery
+
+
+* Next Week
+
+The group will delegate individual module responsibility to begin on module prototyping work, and will conduct a meeting with Mech. E. capstone advisor Andrew Gouldstone to shore up specific questions about our mechanical specification.

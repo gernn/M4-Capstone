@@ -1,0 +1,25 @@
+:PROPERTIES:
+:END:
+#+title: Capstone 1 Weekly Report
+#+AUTHOR: Alejandro Hervella, Peter Brown, Ian Chan, Gokce Saracoglu, Will Tower
+#+STARTUP: = latexpreview
+
+
+* Summary of Accomplishments
+
+** System Block Diagram
+The group met to discuss research into various subsystems according to the previously established labor division, and produced a block diagram roughly defining subsystem interconnections.
+
+#+ATTR_ORG: :width 800 :align center
+[[file:block_diagram.png]]
+
+
+** Consultations
+The group also contacted professor Andrew Gouldstone, setting a meeting Wednesday to discuss mechanical aspects of the project, and set a meeting with professor Padir the following Wednesday
+
+** CAD work
+A STEP drawing of a use-case conversion wheelchair was produced in SolidWorks, to aid in analysis of weight distribution and the development of a retrofitting process.
+
+* Next Week
+
+The group plans to meet with Taskin Padir, and spend a considerable amount of time developing and practicing our proposal presentation.

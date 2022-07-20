@@ -295,7 +295,6 @@ H. Vora, A. Gupta, C. Pamnani, and T. Jaiswal, “Multimodal Smart wheelchair in
 
 M. A. Rahman, S. M. Ahsanuzzaman, A. Hasan, I. Rahman, T. Ahmed and M. M. Kadir, "Building A Wheelchair Controlling and Fall Detection System Using Mobile Application," 2020 2nd International Conference on Advanced Information and Communication Technology (ICAICT), 2020, pp. 213-218, doi: 10.1109/ICAICT51780.2020.9333478
 
-
 * Breakout Meeting on Zoom
 <2022-07-19 Tue 17:00-18:30>
 Further refinement and discussion of ideas, Will was unable to attend due to a personal matter.

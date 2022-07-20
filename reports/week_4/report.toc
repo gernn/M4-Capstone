@@ -1,0 +1,5 @@
+\contentsline {section}{\numberline {1}Summary of Accomplishments}{1}{}%
+\contentsline {subsection}{\numberline {1.1}System Block Diagram}{1}{}%
+\contentsline {subsection}{\numberline {1.2}Consultations}{2}{}%
+\contentsline {subsection}{\numberline {1.3}CAD work}{2}{}%
+\contentsline {section}{\numberline {2}Next Week}{2}{}%
