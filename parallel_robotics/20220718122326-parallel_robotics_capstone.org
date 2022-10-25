@@ -16,7 +16,7 @@
 - positioning error is cumumlative
 - long, complex chain structures
 - rigidity decreases as chain count increases
-- joint flexibility dependent on upstream and downstream joints
+- joint flexibility is dependent on upstream and downstream joints
 
 *** parallel (like a spider)
 
